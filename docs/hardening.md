@@ -2,6 +2,6 @@
 
 Estado global: 0/3 completado
 
-- [ ] (ítem A, pendiente)
+- [x] Forzar HTTPS con redirección
 - [ ] (ítem B, pendiente)
 - [ ] (ítem C, pendiente)
