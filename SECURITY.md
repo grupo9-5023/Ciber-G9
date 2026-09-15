@@ -1,4 +1,4 @@
 # Política de seguridad del equipo
 
-Contacto de seguridad: Oriol
+Contacto de seguridad: Oriol, Nacho
 Última revisión: (pendiente)
