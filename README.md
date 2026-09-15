@@ -4,4 +4,4 @@
 |-------------|------------------|-----------------------------------|
 | Oriol       | Admin            | git merge                         |
 | Nacho       | Maintainer       | git merge                         |
-| (miembro C) |                  |                                   |
+| Luisda      | Write            | git rebase                        |
