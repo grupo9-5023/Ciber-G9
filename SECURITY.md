@@ -1,4 +1,4 @@
 # Política de seguridad del equipo
 
-Contacto de seguridad: (pendiente)
+Contacto de seguridad: Oriol
 Última revisión: (pendiente)
