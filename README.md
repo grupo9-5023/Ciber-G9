@@ -3,5 +3,5 @@
 | Miembro     | Rol en el equipo | Comando Git que más te ha costado |
 |-------------|------------------|-----------------------------------|
 | Oriol       | Admin            | git merge                         |
-| (miembro B) |                  |                                   |
+| Nacho       | Maintainer       | git merge                         |
 | (miembro C) |                  |                                   |
