@@ -1,8 +1,7 @@
-# Checklist de hardening del servidor web
+Checklist de hardening del servidor web
 
-Estado global: 1/3 completado
+Estado global: 2/3 completado
 
-* \[x] Forzar HTTPS con redirección 301 y cabecera HSTS
-* \[x] Ocultar la versión del servidor en cabeceras y páginas de error — Apache: ServerTokens Prod y ServerSignature Off; Nginx: server\_tokens off Se comprueba con curl -I http://servidor/
-* \[x] Desactivar el listado de directorios
-
+[x] Forzar HTTPS con redirección
+[x] Ocultar la versión del servidor en cabeceras y páginas de error — Apache: ServerTokens Prod y ServerSignature Off; Nginx: server_tokens off
+[x] Desactivar el listado de directorios — Apache: Options -Indexes; Nginx: autoindex off. Se comprueba entrando en una carpeta sin index.html
