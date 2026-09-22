@@ -73,7 +73,4 @@ desmarcado y Do not allow bypassing activado.
 
 ## 9. En la Fase 1 compartíais un portátil y en la Fase 2 cada uno tenía el suyo. ¿Qué diferencia práctica tiene eso para la identidad del autor de cada commit y para cómo aparecen los conflictos?
 
-Se perdería todo lo que haya en el main de GitHub y no esté en la copia de
-quien hace el force push, como merges de PR o commits de otros, y los demás
-quedarían desincronizados. Lo impide la regla de protección: Allow force pushes
-desmarcado y Do not allow bypassing activado.
+Con un portátil, cada uno tenía que cambiar `git config --local` antes de su commit y era fácil equivocarse: un commit salió con un correo de ejemplo y lo corregimos con `--amend --reset-author`. Con portátiles separados, la identidad es automática con `--global`. Los conflictos, en la Fase 1, salían al hacer merge entre ramas locales; en la Fase 2 salen al sincronizar (push rechazado, `pull` o PR), así que hace falta más coordinación.
