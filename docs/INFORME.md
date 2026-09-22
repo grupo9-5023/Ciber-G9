@@ -1,6 +1,6 @@
 # Informe — Ciber-G9
 
-Última actualización: Oriol y Nacho (preguntas 1-6)
+Última actualización: Oriol, Nacho y Luisda (preguntas 1-9)
 
 ## 1. ¿Por qué el segundo push del apartado 2.2 fue rechazado? ¿Qué dos operaciones hace `git pull` por debajo?
 
@@ -49,6 +49,7 @@ real, lo primero es cambiar la contraseña y revisar accesos. Después se puede
 limpiar el historial con git filter-repo, pero eso no deshace la exposición.
 
 ## 6. ¿Qué hace mejor GitHub Desktop que la terminal, y qué no puede hacer? ¿Con cuál habéis entendido mejor el conflicto?
+
 - Desktop muestra mejor el diff y los conflictos, y avisa antes del commit de
 que main está protegida. En cambio, no permite configurar la protección ni los
 roles, ni revisar PR (eso lo hicimos en la web), ni ver el grafo o usar
@@ -58,6 +59,21 @@ los marcadores.
 
 ## 7. Roles: ¿qué puede hacer un Maintain que no pueda un Write? ¿Quién podría haber quitado la protección de `main`?
 
+Write (Luisda) puede crear ramas, hacer push a ramas no protegidas y
+abrir, revisar y fusionar PR. Maintain (Nacho) además gestiona ajustes del repo
+como la descripción, la wiki, issues o los tipos de merge, pero no la seguridad ni
+el acceso. La protección de main solo la podía quitar Oriol, que es Admin.
+
 ## 8. Si mañana un miembro sube un force push a `main`, ¿qué se pierde y qué lo impide en vuestro repositorio?
 
+Se perdería todo lo que haya en el main de GitHub y no esté en la copia de
+quien hace el force push, como merges de PR o commits de otros, y los demás
+quedarían desincronizados. Lo impide la regla de protección: Allow force pushes
+desmarcado y Do not allow bypassing activado.
+
 ## 9. En la Fase 1 compartíais un portátil y en la Fase 2 cada uno tenía el suyo. ¿Qué diferencia práctica tiene eso para la identidad del autor de cada commit y para cómo aparecen los conflictos?
+
+Se perdería todo lo que haya en el main de GitHub y no esté en la copia de
+quien hace el force push, como merges de PR o commits de otros, y los demás
+quedarían desincronizados. Lo impide la regla de protección: Allow force pushes
+desmarcado y Do not allow bypassing activado.
