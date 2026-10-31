@@ -2,7 +2,7 @@
 // Login de Mordor - Portal de Sauron
 // Sesiones PHP reales (sin httpOnly para permitir robo de cookie vía XSS)
 
-ini_set('session.cookie_httponly', 0);
+ini_set('session.cookie_httponly', 1);
 session_name("lotrCookie");
 session_start();
 
