@@ -1,0 +1,4 @@
+# No servir por la web el script de la base de datos (fuga de credenciales)
+<Files "init.sql">
+    Require all denied
+</Files>
