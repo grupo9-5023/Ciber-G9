@@ -52,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['map'])) {
     $tmp = $_FILES['map']['tmp_name'];
     $upload_dir = __DIR__ . '/uploads/';
 
-    // VULNERABLE: Only checks the LAST extension
-    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    // CORREGIDO: validar el contenido real del fichero, no la extension
+    $info = getimagesize($tmp);
 
-    if ($ext !== 'jpg' && $ext !== 'jpeg') {
+    if ($info === false || $info['mime'] !== 'image/jpeg') {
         $error = "¡Solo se permiten imágenes de mapas (.jpg)! ¡El Señor Oscuro lo exige!";
     } else {
         if (move_uploaded_file($tmp, $upload_dir . $filename)) {
