@@ -258,10 +258,10 @@ $messages = $conn->query("SELECT * FROM orc_messages ORDER BY created_at DESC");
                                 </form>
                             <?php endif; ?>
 
-                            <div class="author"><?php echo $msg['author']; ?></div>
+                            <div class="author"><?php echo htmlspecialchars($msg['author']); ?></div>
 
                             <!-- XSS VULNERABILITY HERE: Message is printed without htmlspecialchars() -->
-                            <div class="text"><?php echo $msg['message']; ?></div>
+                            <div class="text"><?php echo htmlspecialchars($msg['message']); ?></div>
 
                             <div class="time"><?php echo $msg['created_at']; ?></div>
                         </div>
