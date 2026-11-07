@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ip'])) {
         http_response_code(400);
         $output = 'Introduce una dirección IP válida.';
     } else {
+        // Falso positivo de Semgrep: $ip ya es una IP validada y proc_open recibe un
+        // array de argumentos, así que no pasa por ninguna shell (no hay inyección).
+        // nosemgrep: php.lang.security.tainted-exec.tainted-exec
         $process = proc_open(
             ['/usr/bin/ping', '-c', '1', $ip],
             [
