@@ -1,0 +1,88 @@
+# Despliegue de las tres webs. Lo usa Jenkins dos veces con proyectos distintos:
+#   docker compose -p g9-test    ...  -> entorno de test (para el DAST)
+#   docker compose -p g9-preprod ...  -> preproducción
+# Puertos, contraseña y versión de imagen llegan por variables de entorno
+# (Jenkinsfile). La contraseña sale de las credenciales de Jenkins, no del repo.
+#
+# Las BD se crean desde cero con los init.sql (ya no se usan las carpetas
+# db_data del profesor). Los nombres db1/db2/db3 coinciden con los db.php.
+
+x-db: &db
+  image: mysql:8.0
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+    MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Falta DB_ROOT_PASSWORD}
+  healthcheck:
+    # Por TCP (127.0.0.1): durante la carga del init.sql MySQL arranca sin red,
+    # así que solo responde cuando la inicialización ha terminado.
+    test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+    interval: 5s
+    timeout: 5s
+    retries: 30
+    start_period: 30s
+
+services:
+  # --- Star Wars (Estrella de la Muerte) ---
+  db1:
+    <<: *db
+    volumes:
+      - ./deploy/sql/deathstar.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+
+  web1:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      args:
+        SITE_DIR: web-estrella-de-la-muerte
+    image: g9/starwars:${IMAGE_TAG:-dev}
+    environment:
+      DB_PASSWORD: ${DB_ROOT_PASSWORD:?Falta DB_ROOT_PASSWORD}
+    ports:
+      - "${PORT_STARWARS:?Falta PORT_STARWARS}:80"
+    depends_on:
+      db1:
+        condition: service_healthy
+
+  # --- Mordor (Barad-dûr) ---
+  db2:
+    <<: *db
+    volumes:
+      - ./web-mordor/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+
+  web2:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      args:
+        SITE_DIR: web-mordor
+        WRITABLE_DIR: private/uploads
+    image: g9/mordor:${IMAGE_TAG:-dev}
+    environment:
+      DB_PASSWORD: ${DB_ROOT_PASSWORD:?Falta DB_ROOT_PASSWORD}
+    ports:
+      - "${PORT_MORDOR:?Falta PORT_MORDOR}:80"
+    depends_on:
+      db2:
+        condition: service_healthy
+
+  # --- Star Trek (Enterprise) ---
+  db3:
+    <<: *db
+    volumes:
+      - ./StarTrek/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+
+  web3:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+      args:
+        SITE_DIR: StarTrek
+        WRITABLE_DIR: management/uploads
+    image: g9/startrek:${IMAGE_TAG:-dev}
+    environment:
+      DB_PASSWORD: ${DB_ROOT_PASSWORD:?Falta DB_ROOT_PASSWORD}
+    ports:
+      - "${PORT_STARTREK:?Falta PORT_STARTREK}:80"
+    depends_on:
+      db3:
+        condition: service_healthy
