@@ -57,6 +57,11 @@ pipeline {
         }
 
         stage('Build imágenes') {
+            environment {   // el compose exige los puertos aunque solo construya
+                PORT_STARWARS = '55340'
+                PORT_MORDOR   = '55350'
+                PORT_STARTREK = '55360'
+            }
             steps {
                 sh 'docker compose -p g9-test build'
             }
@@ -126,7 +131,7 @@ pipeline {
             archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true
             script {
                 if (fileExists('reports/semgrep.sarif')) {
-                    recordIssues(tools: [sarif(pattern: 'reports/semgrep.sarif', id: 'semgrep', name: 'Semgrep (SAST)')])
+                    recordIssues(enabledForFailure: true, tools: [sarif(pattern: 'reports/semgrep.sarif', id: 'semgrep', name: 'Semgrep (SAST)')])
                 }
             }
             publishHTML(target: [
