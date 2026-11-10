@@ -20,7 +20,7 @@ pipeline {
     }
 
     environment {
-        SERVER_IP        = '10.30.212.109'
+        SERVER_IP        = '10.30.212.53'
         IMAGE_TAG        = "${env.BUILD_NUMBER}"
         DB_ROOT_PASSWORD = credentials('g9-db-root-password')
         SEMGREP_IMAGE    = 'semgrep/semgrep'
